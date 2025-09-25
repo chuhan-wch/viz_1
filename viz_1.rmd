@@ -1,0 +1,66 @@
+---
+title: "viz_1"
+author: "chuhan wang_cw3747"
+date: "2025-09-25"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggridges)
+library(p8105.datasets)
+data("weather_df")
+```
+
+```{r}
+ggplot(data = weather_df, mapping = aes(x = tmin, y = tmax)) +
+  geom_point()
+```
+
+```{r}
+weather_df  |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point()
+```
+
+```{r}
+ggp_weather_scatterplot = 
+  weather_df  |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point()
+
+ggp_weather_scatterplot
+```
+
+```{r}
+weather_df  |>
+  filter(is.na(tmax))
+```
+
+## Fancier scatterplot
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name, size = prcp), alpha = 0.3) +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name), alpha = 0.3, size = 0.74) +
+  geom_smooth(se = FALSE) +
+  facet_grid(. ~ name)
+```
+
