@@ -62,5 +62,36 @@ weather_df |>
   geom_point(aes(color = name), alpha = 0.3, size = 0.74) +
   geom_smooth(se = FALSE) +
   facet_grid(. ~ name)
+
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name), alpha = 0.3, size = 0.74) +
+  geom_smooth(se = FALSE) +
+  facet_grid(name ~ .)
 ```
+
+```{r}
+weather_df |>
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(aes(size = prcp), alpha = 0.3) +
+  geom_smooth(se = FALSE) +
+  facet_grid(. ~ name)
+```
+
+## LA
+```{r}
+library(dplyr)
+library(ggplot2)
+
+weather_df |>
+  filter(name == "CentralPark_NY") |>
+  mutate(
+    tmax_fahr = tmax * (9/5) + 32,
+    tmin_fahr = tmin * (9/5) + 32
+  ) |>
+  ggplot(aes(x = tmin_fahr, y = tmax_fahr)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
 
